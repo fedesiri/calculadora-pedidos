@@ -89,8 +89,18 @@ function getInitialPriceType(): PriceType {
   return "mayorista"
 }
 
+function getInitialCustomerName(): string {
+  if (typeof window !== "undefined") {
+    try {
+      return localStorage.getItem("order-customer-name") ?? ""
+    } catch {}
+  }
+  return ""
+}
+
 export function OrderCalculator() {
   const [priceType, setPriceType] = useState<PriceType>(getInitialPriceType)
+  const [customerName, setCustomerName] = useState(getInitialCustomerName)
   const [quantities, setQuantities] = useState<Quantities>(getInitialQuantities)
   const [giftQuantities, setGiftQuantities] = useState<GiftQuantities>(getInitialGiftQuantities)
   const [variantQuantities, setVariantQuantities] = useState<VariantQuantities>(getInitialVariantQuantities)
@@ -112,6 +122,12 @@ export function OrderCalculator() {
       localStorage.setItem("beer-price-type", priceType)
     }
   }, [priceType, mounted])
+
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem("order-customer-name", customerName)
+    }
+  }, [customerName, mounted])
 
   useEffect(() => {
     if (mounted) {
@@ -191,7 +207,8 @@ export function OrderCalculator() {
   )
 
   const handleCopy = useCallback(() => {
-    const parts: string[] = ["Pedido", "", `Precio: ${PRICE_TYPE_LABELS[priceType].toUpperCase()}`, ""]
+    const nameLine = customerName.trim() ? `Pedido para: ${customerName.trim()}` : "Pedido"
+    const parts: string[] = [nameLine, "", `Precio: ${PRICE_TYPE_LABELS[priceType].toUpperCase()}`, ""]
 
     // LITRO: cervezas con litro
     const litroLines: { style: string; qty: number; subtotal: number }[] = []
@@ -263,10 +280,11 @@ export function OrderCalculator() {
     }).catch(() => {
       toast.error("No se pudo copiar")
     })
-  }, [quantities, giftQuantities, variantQuantities, priceType, total])
+  }, [quantities, giftQuantities, variantQuantities, priceType, total, customerName])
 
   const handleClear = useCallback(() => {
     if (navigator.vibrate) navigator.vibrate(30)
+    setCustomerName("")
     setQuantities(
       BEER_STYLES.reduce((acc, style) => {
         acc[style] = { litro: 0, medio: 0 }
@@ -292,6 +310,7 @@ export function OrderCalculator() {
 
   const handleNewOrder = useCallback(() => {
     if (navigator.vibrate) navigator.vibrate(30)
+    setCustomerName("")
     setQuantities(
       BEER_STYLES.reduce((acc, style) => {
         acc[style] = { litro: 0, medio: 0 }
@@ -332,6 +351,15 @@ export function OrderCalculator() {
           <h1 className="mb-3 text-lg font-bold text-foreground">
             Calculadora de Pedidos
           </h1>
+          <div className="mb-3">
+            <input
+              type="text"
+              value={customerName}
+              onChange={(e) => setCustomerName(e.target.value)}
+              placeholder="Nombre del cliente (opcional)"
+              className="h-9 w-full rounded-lg border border-border bg-input px-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+            />
+          </div>
           <PriceSelector selected={priceType} onSelect={setPriceType} />
           <div className="relative mt-3">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
