@@ -7,6 +7,7 @@ interface GiftItemCardProps {
   itemName: string
   priceType: PriceType
   quantity: number
+  unitPriceOverride?: number
   onQuantityChange: (qty: number) => void
 }
 
@@ -14,10 +15,12 @@ export function GiftItemCard({
   itemName,
   priceType,
   quantity,
+  unitPriceOverride,
   onQuantityChange,
 }: GiftItemCardProps) {
   const prices = GIFT_ITEMS[itemName]
   const hasItems = quantity > 0
+  const unitPrice = unitPriceOverride ?? prices[priceType]
 
   return (
     <div
@@ -30,7 +33,7 @@ export function GiftItemCard({
       <h2 className="mb-3 text-lg font-bold text-foreground">{itemName}</h2>
       <QuantityControl
         label="Unidad"
-        price={prices[priceType]}
+        price={unitPrice}
         quantity={quantity}
         onIncrement={() => onQuantityChange(quantity + 1)}
         onDecrement={() => onQuantityChange(Math.max(0, quantity - 1))}

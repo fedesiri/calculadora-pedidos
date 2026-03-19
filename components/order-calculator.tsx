@@ -165,17 +165,23 @@ export function OrderCalculator() {
     return sum + litroTotal + q.medio * prices.medio[priceType]
   }, 0)
 
-  const giftTotal = GIFT_ITEM_NAMES.reduce((sum, name) => {
-    const qty = giftQuantities[name] ?? 0
-    return sum + qty * GIFT_ITEMS[name][priceType]
-  }, 0)
-
   const variantTotal = VARIANT_ITEM_NAMES.reduce((sum, itemName) => {
     const variants = VARIANT_ITEMS[itemName]
     return sum + Object.keys(variants).reduce((s, variant) => {
       const qty = variantQuantities[itemName]?.[variant] ?? 0
       return s + qty * variants[variant][priceType]
     }, 0)
+  }, 0)
+
+  // Promo: si la COMPRA de CERVEZA supera 50k, `Estuche/Copa` pasa a $6500
+  // (solo para mayorista/minorista).
+  const promoApplies = priceType !== "fabrica" && beerTotal > 50000
+
+  const giftTotal = GIFT_ITEM_NAMES.reduce((sum, name) => {
+    const qty = giftQuantities[name] ?? 0
+    const unitPrice =
+      name === "Estuche/Copa" && promoApplies ? 6500 : GIFT_ITEMS[name][priceType]
+    return sum + qty * unitPrice
   }, 0)
 
   const total = beerTotal + giftTotal + variantTotal
@@ -251,7 +257,9 @@ export function OrderCalculator() {
     GIFT_ITEM_NAMES.forEach((name) => {
       const qty = giftQuantities[name] ?? 0
       if (qty <= 0) return
-      const subtotal = qty * GIFT_ITEMS[name][priceType]
+      const unitPrice =
+        name === "Estuche/Copa" && promoApplies ? 6500 : GIFT_ITEMS[name][priceType]
+      const subtotal = qty * unitPrice
       extraLines.push(`- ${qty} ${name.toLowerCase()} --> ${subtotal}`)
     })
     VARIANT_ITEM_NAMES.forEach((itemName) => {
@@ -280,7 +288,7 @@ export function OrderCalculator() {
     }).catch(() => {
       toast.error("No se pudo copiar")
     })
-  }, [quantities, giftQuantities, variantQuantities, priceType, total, customerName])
+  }, [quantities, giftQuantities, variantQuantities, priceType, total, promoApplies, customerName])
 
   const handleClear = useCallback(() => {
     if (navigator.vibrate) navigator.vibrate(30)
@@ -415,6 +423,9 @@ export function OrderCalculator() {
                   itemName={name}
                   priceType={priceType}
                   quantity={giftQuantities[name] ?? 0}
+                  unitPriceOverride={
+                    name === "Estuche/Copa" && promoApplies ? 6500 : undefined
+                  }
                   onQuantityChange={(qty) => updateGiftQuantity(name, qty)}
                 />
               ))}
