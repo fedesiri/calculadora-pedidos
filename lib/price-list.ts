@@ -63,8 +63,9 @@ export const PRICE_LIST: Record<string, BeerStyle> = {
   "Ipa Maracuya": {
     medio: { mayorista: 2100, minorista: 2700, fabrica: 1600 },
   },
-
-  
+  "Imperial Stout": {
+    medio: { mayorista: 2100, minorista: 2700, fabrica: 1600 },
+  },
 }
 
 export const BEER_STYLES = Object.keys(PRICE_LIST)
