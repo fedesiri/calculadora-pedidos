@@ -13,58 +13,58 @@ export type BeerStyle = {
 
 export const PRICE_LIST: Record<string, BeerStyle> = {
   Golden: {
-    litro: { mayorista: 2800, minorista: 3300, fabrica: 2200 },
-    medio: { mayorista: 1800, minorista: 2200, fabrica: 1350 },
+    litro: { mayorista: 2800, minorista: 3300, fabrica: 2250 },
+    medio: { mayorista: 1800, minorista: 2200, fabrica: 1370 },
   },
   Honey: {
-    litro: { mayorista: 2800, minorista: 3300, fabrica: 2200 },
-    medio: { mayorista: 1800, minorista: 2200, fabrica: 1350 },
+    litro: { mayorista: 2800, minorista: 3300, fabrica: 2250 },
+    medio: { mayorista: 1800, minorista: 2200, fabrica: 1370 },
   },
   "Red Ale": {
-    litro: { mayorista: 2800, minorista: 3300, fabrica: 2200 },
-    medio: { mayorista: 1800, minorista: 2200, fabrica: 1350 },
+    litro: { mayorista: 2800, minorista: 3300, fabrica: 2250 },
+    medio: { mayorista: 1800, minorista: 2200, fabrica: 1370 },
   },
   "Cream Stout": {
-    litro: { mayorista: 2800, minorista: 3300, fabrica: 2200 },
-    medio: { mayorista: 1800, minorista: 2200, fabrica: 1350 },
+    litro: { mayorista: 2800, minorista: 3300, fabrica: 2250 },
+    medio: { mayorista: 1800, minorista: 2200, fabrica: 1370 },
   },
   Frambuesa: {
-    medio: { mayorista: 2100, minorista: 2700, fabrica: 1600 },
+    medio: { mayorista: 2100, minorista: 2700, fabrica: 1650 },
   },
   "Session Ipa": {
-    litro: { mayorista: 3300, minorista: 3900, fabrica: 2600 },
-    medio: { mayorista: 2100, minorista: 2700, fabrica: 1600 },
+    litro: { mayorista: 3300, minorista: 3900, fabrica: 2650 },
+    medio: { mayorista: 2100, minorista: 2700, fabrica: 1650 },
   },
   "Doble Ipa": {
-    litro: { mayorista: 3300, minorista: 3900, fabrica: 2600 },
-    medio: { mayorista: 2100, minorista: 2700, fabrica: 1600 },
+    litro: { mayorista: 3300, minorista: 3900, fabrica: 2650 },
+    medio: { mayorista: 2100, minorista: 2700, fabrica: 1650 },
   },
   "Ipa Argenta": {
-    medio: { mayorista: 2100, minorista: 2700, fabrica: 1600 },
+    medio: { mayorista: 2100, minorista: 2700, fabrica: 1650 },
   },
   "Ipa Whisky": {
-    medio: { mayorista: 2100, minorista: 2700, fabrica: 1600 },
+    medio: { mayorista: 2100, minorista: 2700, fabrica: 1650 },
   },
   "H. Maracuya": {
-    medio: { mayorista: 2100, minorista: 2700, fabrica: 1600 },
+    medio: { mayorista: 2100, minorista: 2700, fabrica: 1650 },
   },
   "Trigo": {
-    medio: { mayorista: 2100, minorista: 2700, fabrica: 1600 },
+    medio: { mayorista: 2100, minorista: 2700, fabrica: 1650 },
   },
   "Oud bruin": {
-    medio: { mayorista: 2100, minorista: 2700, fabrica: 1600 },
+    medio: { mayorista: 2100, minorista: 2700, fabrica: 1650 },
   },
   "Nibs & wood": {
-    medio: { mayorista: 2100, minorista: 2700, fabrica: 1600 },
+    medio: { mayorista: 2100, minorista: 2700, fabrica: 1650 },
   },
   "Wheat wine": {
-    medio: { mayorista: 2100, minorista: 2700, fabrica: 1600 },
+    medio: { mayorista: 2100, minorista: 2700, fabrica: 1650 },
   },
   "Ipa Maracuya": {
-    medio: { mayorista: 2100, minorista: 2700, fabrica: 1600 },
+    medio: { mayorista: 2100, minorista: 2700, fabrica: 1650 },
   },
   "Imperial Stout": {
-    medio: { mayorista: 2100, minorista: 2700, fabrica: 1600 },
+    medio: { mayorista: 2100, minorista: 2700, fabrica: 1650 },
   },
 }
 
